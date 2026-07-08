@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheirinho Gostoso Aff | Perfumes Importados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variáveis de Tema Padrão (Escuro) */
+        :root {
+            --bg-color: #0a0a0a;
+            --surface-color: #121212;
+            --accent-color: #d4af37; /* Dourado luxo */
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --header-bg: rgba(10, 10, 10, 0.85);
+            --border-color: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Variáveis de Tema Alternativo (Claro) */
+        :root[data-theme="light"] {
+            --bg-color: #fcfbfa;
+            --surface-color: #f3f0eb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --header-bg: rgba(252, 251, 250, 0.85);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition-smooth), border-bottom var(--transition-smooth);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition-smooth);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- API DE BOTÕES (SWITCH DE TEMA) --- */
+        .theme-api-wrapper {
+            display: flex;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 4px;
+            border-radius: 30px;
+            gap: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* Destaca o botão ativo dinamicamente */
+        :root[data-theme="light"] #theme-btn-light,
+        :root:not([data-theme="light"]) #theme-btn-dark {
+            background-color: var(--accent-color);
+            color: #0a0a0a;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1rem;
+            /* O gradiente usa var(--bg-color) para clarear/escurizar organicamente a transição com o fundo */
+            background: linear-gradient(rgba(10, 10, 10, 0.4), var(--bg-color)), url('./img/hero-bg.jpg') center/cover no-repeat; 
+            transition: background var(--transition-smooth);
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+            transition: color var(--transition-smooth);
+        }
+
+        .btn-discover {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-discover:hover {
+            background-color: var(--accent-color);
+            color: #0a0a0a;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* --- SEÇÃO HISTÓRIA --- */
+        .history-section {
+            padding: 8rem 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .history-img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1.5rem;
+        }
+
+        .history-content h2 {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .history-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            transition: color var(--transition-smooth);
+        }
+
+        /* --- SEÇÃO PRODUTOS (CARDS) --- */
+        .products-section {
+            padding: 4rem 10% 8rem;
+        }
+
+        .products-section h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 400;
+        }
+
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .product-card:hover .img-container img {
+            transform: scale(1.1);
+        }
+
+        .product-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .product-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            transition: color var(--transition-smooth);
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            transition: border-top var(--transition-smooth);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .btn-buy {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-buy:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- RODAPÉ --- */
+        footer {
+            background-color: var(--surface-color);
+            padding: 4rem 10% 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            transition: background-color var(--transition-smooth), border-top var(--transition-smooth);
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-socials a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: color var(--transition-smooth);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 5%; }
+            nav { display: none; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .history-section {
+                grid-template-columns: 1fr;
+                padding: 4rem 5%;
+                gap: 2rem;
+            }
+            .history-img { height: 300px; }
+            .products-section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Cheirinho Gostoso <span>Aff.</span></a>
+        
+        <div class="nav-container">
+            <nav>
+                <a href="#historia">A História</a>
+                <a href="#colecao">Coleção</a>
+            </nav>
+            
+            <div class="theme-api-wrapper">
+                <button id="theme-btn-light" class="theme-btn" title="Modo Claro">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="theme-btn-dark" class="theme-btn" title="Modo Escuro">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>A Arte da Sedução em Frascos</h1>
+            <p>Descubra a nossa curadoria exclusiva de fragrâncias importadas que definem a sua presença por onde passar.</p>
+            <a href="#colecao" class="btn-discover">Explorar Coleção</a>
+        </div>
+    </section>
+
+    <section class="history-section" id="historia">
+        <img src="./img/imagem8.jpg" alt="História do Perfume" class="history-img">
+        <div class="history-content">
+            <h2>A Alquimia dos Sentidos</h2>
+            <p>A palavra *perfume* vem do latim "per fumum", que significa "através da fumaça". Na antiguidade, os egípcios honravam os deuses queimando iguarias e resinas raras, transformando o aroma em uma ponte entre o terreno e o divino.</p>
+            <p>Com o passar dos séculos, a perfumaria evoluiu de um ritual sagrado para a expressão máxima da identidade e elegância individual. Hoje, cada fragrância importada carrega uma assinatura invisível, capaz de eternizar memórias e despertar desejos com uma única borrifada.</p>
+        </div>
+    </section>
+
+    <section class="products-section" id="colecao">
+        <h2>Fragrâncias Assinatura</h2>
+        
+        <div class="grid-products">
+            
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem1.jpg" alt="Perfume 1">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bleu de Nuit</h3>
+                    <p class="product-desc">Uma viagem magnética com notas marcantes de sândalo, incenso e um toque cítrico refrescante.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 145.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem2.jpg" alt="Perfume 2">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Orchidée Royale</h3>
+                    <p class="product-desc">A delicadeza da orquídea negra misturada à doçura sofisticada da baunilha de Madagascar.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 160.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem3.jpg" alt="Perfume 3">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Or d'Ambre</h3>
+                    <p class="product-desc">Quente, opulento e misterioso. Uma base rica de âmbar cinzento e especiarias orientais.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 185.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem4.jpg" alt="Perfume 4">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elysium Pour Femme</h3>
+                    <p class="product-desc">Uma explosão floral branca combinada com o frescor moderno da pêra e bergamota.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 130.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem5.jpg" alt="Perfume 5">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Cuir Fumé</h3>
+                    <p class="product-desc">Para quem busca presença. Notas intensas de couro nobre, tabaco suave e madeiras finas.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 195.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./img/imagem6.jpg" alt="Perfume 6">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mystique Rose</h3>
+                    <p class="product-desc">A clássica rosa de Grasse reinventada com toques contemporâneos de pimenta rosa e almíscar.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$ 155.00</span>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Cheirinho Gostoso Aff. Todos os direitos reservados. Fragrâncias Originais.</p>
+    </footer>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <script>
+        const ThemeAPI = (() => {
+            const STORAGE_KEY = 'landing_page_theme';
+            const root = document.documentElement;
+
+            return {
+                setTheme: (theme) => {
+                    if (theme === 'light') {
+                        root.setAttribute('data-theme', 'light');
+                        localStorage.setItem(STORAGE_KEY, 'light');
+                    } else {
+                        root.removeAttribute('data-theme');
+                        localStorage.setItem(STORAGE_KEY, 'dark');
+                    }
+                },
+                getSavedTheme: () => localStorage.getItem(STORAGE_KEY) || 'dark'
+            };
+        })();
+
+        // Vinculando os botões da interface aos métodos da API
+        document.getElementById('theme-btn-light').addEventListener('click', () => ThemeAPI.setTheme('light'));
+        document.getElementById('theme-btn-dark').addEventListener('click', () => ThemeAPI.setTheme('dark'));
+
+        // Executa a verificação inicial ao carregar a página
+        (function initTheme() {
+            const savedTheme = ThemeAPI.getSavedTheme();
+            ThemeAPI.setTheme(savedTheme);
+        })();
+    </script>
+</body>
+</html>
